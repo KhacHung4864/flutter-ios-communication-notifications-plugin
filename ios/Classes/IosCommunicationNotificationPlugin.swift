@@ -54,8 +54,12 @@ public class IosCommunicationNotificationPlugin: NSObject, FlutterPlugin {
                 result(false)
                 return
             }
+             guard let banner = (arguments["bannerBytes"] as? FlutterStandardTypedData)?.data else {
+                result(false)
+                return
+            }
             let value = arguments["value"] as? String ?? ""
-            CommunicationNotificationPlugin().showNotification(NotificationInfo(senderName: senderName, pngImage: avatar, content: content, value: value))
+            CommunicationNotificationPlugin().showNotification(NotificationInfo(senderName: senderName, pngImage: avatar, bannerImage: banner,content: content, value: value))
             result(true)
             break
         case "isAvailable":
